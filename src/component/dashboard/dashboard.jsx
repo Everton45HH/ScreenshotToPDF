@@ -14,6 +14,7 @@ export default function Dashboard() {
     if (!images.length) return;
 
     setIsGenerating(true);
+    const M = 10;
 
     let pdf;
 
@@ -29,21 +30,30 @@ export default function Dashboard() {
       const img = new Image();
       img.src = imgData;
 
-      await new Promise((resolve) => {
-        img.onload = resolve;
-      });
+      await new Promise((resolve) => (img.onload = resolve));
+
+      const orientation = img.width > img.height ? "landscape" : "portrait";
 
       if (i === 0) {
-        pdf = new jsPDF({
-          orientation: img.width > img.height ? "landscape" : "portrait",
-          unit: "px",
-          format: [img.width, img.height],
-        });
+        pdf = new jsPDF({ orientation, unit: "mm", format: "a4" });
       } else {
-        pdf.addPage([img.width, img.height]);
+        pdf.addPage("a4", orientation);
       }
 
-      pdf.addImage(img, "JPEG", 0, 0, img.width, img.height, undefined, "MEDIUM");
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+
+      const scale = Math.min(
+        (pageW - 2 * M) / img.width,
+        (pageH - 2 * M) / img.height,
+      );
+      const w = img.width * scale;
+      const h = img.height * scale;
+
+      const x = (pageW - w) / 2;
+      const y = M;
+
+      pdf.addImage(img, "JPEG", x, y, w, h, undefined, "MEDIUM");
     }
 
     const blob = pdf.output("blob");
