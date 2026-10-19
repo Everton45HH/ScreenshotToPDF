@@ -1,0 +1,17 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+*{
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.filepond--root , .filepond--browser , .filepond--wrapper , .filepond--image-preview-wrapper{
+  height: 100%;
+}
+
+.filepond--image-preview-overlay-idle {
+  opacity: 0 !important;
+}
