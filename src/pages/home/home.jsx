@@ -20,6 +20,11 @@ export default function Home() {
         <main>
           <Dashboard className={styles.dashboard} />
         </main>
+
+        <footer>
+          Biblioteca utilizada  
+          <a href="https://github.com/pqina/react-filepond" style={{"color" : "blue"}}> react-filepond</a>
+        </footer>
       </div>
     </>
   );

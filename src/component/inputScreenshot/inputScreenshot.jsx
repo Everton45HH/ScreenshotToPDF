@@ -7,6 +7,7 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginImageCrop from "filepond-plugin-image-crop";
 import FilePondPluginImageResize from "filepond-plugin-image-resize";
 import FilePondPluginImageTransform from "filepond-plugin-image-transform";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
@@ -15,6 +16,7 @@ registerPlugin(
   FilePondPluginImageCrop,
   FilePondPluginImageResize,
   FilePondPluginImageTransform,
+  FilePondPluginFileValidateType,
 );
 
 export default function InputScreenshot({ images, setImages }) {
@@ -27,6 +29,8 @@ export default function InputScreenshot({ images, setImages }) {
         }}
         allowMultiple
         allowDrop
+        acceptedFileTypes={["image/png", "image/jpeg"]}
+        fileValidateTypeLabelExpectedTypes="Apenas PNG ou JPG"
         allowPaste
         allowReorder
         storeAsFile
